@@ -1,3 +1,4 @@
+import React from 'react';
 import header__logo from './../images/header/__logo/header__logo.svg';
 
 function Header() {

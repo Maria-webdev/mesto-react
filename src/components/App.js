@@ -1,46 +1,47 @@
-import React from 'react';
+import {React, useState} from 'react';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 /*import PopupWithForm from './PopupWithForm'; запуталась в пропсах*/
+import ImagePopup from './ImagePopup';
 
  
 function App() {
 
-  function handleEditAvatarClick() {
-    document.querySelector('.popup_avatar').classList.add('popup_visible');
-  }
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
-  function handleEditProfileClick() {
-    document.querySelector('.popup_edit').classList.add('popup_visible');
-  }
-
-  function handleAddPlaceClick() {
-    document.querySelector('.popup_add').classList.add('popup_visible');
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
   }
 
   return (
-    /*
+    /*чтобы не потерять
       <head>
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="keywords" content="Путешествия Места Фотографии"/>
-    <meta name="description" content="9я проектная работа Марии Авериной на курсе Яндекс.Практикум"/>
+    <meta name="description" content="10я проектная работа Марии Авериной на курсе Яндекс.Практикум"/>
     <title>Mesto Russia</title>
   </head>*/
  
  <div className="App">
 
-
   <div className="page">
     <div className="page__container">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+      <Main 
+      onEditProfile={setIsEditProfilePopupOpen}
+      onAddPlace={setIsAddPlacePopupOpen}
+      onEditAvatar={setIsEditAvatarPopupOpen} />
       <Footer />
     </div>
 
-    <div className="popup popup_edit"/* isOpen={isEditProfilePopupOpen}*/>
+    <div className="popup popup_edit" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
       <div className="popup__content">
         <button className="popup__close-button popup__close-button_edit" type="button"></button>
         <h2 className="popup__title">Редактировать профиль</h2>
@@ -54,7 +55,7 @@ function App() {
       </div>
     </div>
 
-    <div className="popup popup_add"/* isOpen={isAddPlacePopupOpen}*/>
+    <div className="popup popup_add" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
       <div className="popup__content">
         <button className="popup__close-button popup__close-button_add" type="button"></button>
         <h2 className="popup__title">Новое место</h2>
@@ -78,7 +79,7 @@ function App() {
       </div>
     </div>
 
-    <div className="popup popup_avatar"/* isOpen={isEditAvatarPopupOpen}*/>
+    <div className="popup popup_avatar" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
       <div className="popup__content">
         <button className="popup__close-button popup__close-button_avatar" type="button"></button>
         <h2 className="popup__title">Обновить аватар</h2>
@@ -89,12 +90,9 @@ function App() {
         </form>
       </div>
     </div>
-    
-    <div className="popup popup-pic">
-      <div className="popup-pic__container">
-        <img className="popup-pic__image" alt="#" src="#" />
-        <h3 className="popup-pic__title"></h3>
-        <button className="popup__close-button popup__close-button_pic" type="button"></button>
+
+    <ImagePopup  />    
+
       </div>
     </div>
     
