@@ -3,26 +3,25 @@ import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+/*import PopupWithForm from './PopupWithForm'; запуталась в пропсах*/
+
  
 function App() {
+
+  function handleEditAvatarClick() {
+    document.querySelector('.popup_avatar').classList.add('popup_visible');
+  }
+
+  function handleEditProfileClick() {
+    document.querySelector('.popup_edit').classList.add('popup_visible');
+  }
+
+  function handleAddPlaceClick() {
+    document.querySelector('.popup_add').classList.add('popup_visible');
+  }
+
   return (
     /*
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
       <head>
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -37,11 +36,11 @@ function App() {
   <div className="page">
     <div className="page__container">
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
       <Footer />
     </div>
 
-    <div className="popup popup_edit">
+    <div className="popup popup_edit"/* isOpen={isEditProfilePopupOpen}*/>
       <div className="popup__content">
         <button className="popup__close-button popup__close-button_edit" type="button"></button>
         <h2 className="popup__title">Редактировать профиль</h2>
@@ -55,7 +54,7 @@ function App() {
       </div>
     </div>
 
-    <div className="popup popup_add">
+    <div className="popup popup_add"/* isOpen={isAddPlacePopupOpen}*/>
       <div className="popup__content">
         <button className="popup__close-button popup__close-button_add" type="button"></button>
         <h2 className="popup__title">Новое место</h2>
@@ -69,27 +68,21 @@ function App() {
       </div>
     </div>
 
-    <div className="popup popup-pic">
-      <div className="popup-pic__container">
-        <img className="popup-pic__image" alt="#" src="#" />
-        <h3 className="popup-pic__title"></h3>
-        <button className="popup__close-button popup__close-button_pic" type="button"></button>
+    <div className="popup popup_delete">
+      <div className="popup__content">
+        <button className="popup__close-button popup__close-button_delete" type="button"></button>
+        <h2 className="popup__title popup__title_delete">Вы уверены?</h2>
+        <form className="popup__form popup__form_type_delete" name="delete">
+          <button className="popup__button popup__button-yes" type="submit">Да</button>
+        </form>
       </div>
     </div>
 
-    <div className="popup popup_delete">
-      <form className="popup__content">
-        <button className="popup__close-button popup__close-button_delete" type="button"></button>
-        <h2 className="popup__title popup__title_delete">Вы уверены?</h2>
-        <button className="popup__button popup__button-yes" type="submit">Да</button>
-      </form>
-    </div>
-
-    <div className="popup popup_avatar">
+    <div className="popup popup_avatar"/* isOpen={isEditAvatarPopupOpen}*/>
       <div className="popup__content">
         <button className="popup__close-button popup__close-button_avatar" type="button"></button>
         <h2 className="popup__title">Обновить аватар</h2>
-        <form className="popup__form popup__form_type_avatar" name="form-avatar" noValidate>
+        <form className="popup__form popup__form_type_avatar" name="avatar" noValidate>
           <input className="popup__input popup__input_type_URL popup__input_type_url-avatar" id="url-avatar" type="url" name="avatar" placeholder="Ссылка на картинку" required />
           <span className="popup__error" id="url-avatar-error"></span>
           <button className="popup__button popup__button_avatar popup__button_inactive" type="submit">Сохранить</button>
@@ -97,10 +90,19 @@ function App() {
       </div>
     </div>
     
+    <div className="popup popup-pic">
+      <div className="popup-pic__container">
+        <img className="popup-pic__image" alt="#" src="#" />
+        <h3 className="popup-pic__title"></h3>
+        <button className="popup__close-button popup__close-button_pic" type="button"></button>
+      </div>
+    </div>
+    
   </div>
-</div>
+ </div>
 
   );
 }
 
 export default App;
+
