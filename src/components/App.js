@@ -1,37 +1,45 @@
-import { React, useState } from "react";
+import React from 'react';
 import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
-/*import ImagePopup from './ImagePopup';*/
+import ImagePopup from './ImagePopup';
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+   const [selectedCard, setSelectedCard] = React.useState(null);
 
-  function closeAllPopups() {
+    function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   return (
-    function handleEditProfileClick() {
-      setIsEditProfilePopupOpen(true);
-    },
-    function handleAddPlaceClick() {
-      setIsAddPlacePopupOpen(true);
-    },
-    function handleEditAvatarClick() {
-      setIsEditAvatarPopupOpen(true);
-    },
+
     (
       <>
         <div className="page__container">
           <Header />
-          <Main onEditProfile={setIsEditProfilePopupOpen} onAddPlace={setIsAddPlacePopupOpen} onEditAvatar={setIsEditAvatarPopupOpen} />
+          <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
           <Footer />
         </div>
 
@@ -53,6 +61,8 @@ function App() {
           <input className="popup__input popup__input_type_URL popup__input_type_url-avatar" id="url-avatar" type="url" name="avatar" placeholder="Ссылка на картинку" required />
           <span className="popup__error" id="url-avatar-error"></span>
         </PopupWithForm>
+
+        <ImagePopup card={selectedCard !== null && selectedCard} onClose={closeAllPopups} />
       </>
     )
   );

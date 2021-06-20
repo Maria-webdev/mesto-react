@@ -1,12 +1,14 @@
 
 import React from 'react';
-import api from './Api';
+import api from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
 
   const [userName, setUserName] = React.useState('');
   const [userDescription , setUserDescription ] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
   
   React.useEffect(() => {
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -14,6 +16,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   setUserName(profileInfo.name);
   setUserDescription(profileInfo.about);
   setUserAvatar(profileInfo.avatar);
+  setCards(cards);
 })
 .catch(result => console.log(`${result} при загрузке данных с сервера`))
 }, []);
@@ -34,19 +37,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         <button className="profile__add-button" onClick={props.onAddPlace} type="button"></button>
       </section>
       <section className="elements">
-        <template id="element-template">
-          <div className="element">
-            <img className="element__pic" src="#" alt="#" />
-            <button className="element__delete-button" type="button"></button>
-            <div className="element__info">
-              <h2 className="element__title"></h2>
-              <div className="element__group">
-                <button className="element__like-button" type="button"></button>
-                <div className="element__count"></div>
-              </div>
-            </div>
-          </div>
-        </template>
+        {cards.map((card) => (
+          <Card card={card} key={card._id} onCardClick={props.onCardClick}/>
+        ))}
       </section>
     </main>
   );
