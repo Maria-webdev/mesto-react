@@ -1,21 +1,37 @@
-import React from 'react';
 
-function Main({onEditAvatar, onEditProfile, onAddPlace}) {
+import React from 'react';
+import api from './Api';
+
+function Main(props) {
+
+  const [userName, setUserName] = React.useState('');
+  const [userDescription , setUserDescription ] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+  
+  React.useEffect(() => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([profileInfo, cards]) => {
+  setUserName(profileInfo.name);
+  setUserDescription(profileInfo.about);
+  setUserAvatar(profileInfo.avatar);
+})
+.catch(result => console.log(`${result} при загрузке данных с сервера`))
+}, []);
  
   return (
     <main className="content">
       <section className="profile">
-        <button className="profile__avatar-edit-button" onClick={onEditAvatar}>
-          <img className="profile__avatar" src="#" alt="фотография владельца профиля" />
+        <button className="profile__avatar-edit-button" onClick={props.onEditAvatar}>
+          <img className="profile__avatar" src={userAvatar} alt="фотография владельца профиля" />
         </button>
         <div className="profile__info">
           <div className="profile__main">
-            <h1 className="profile__title">тест</h1>
-            <button className="profile__edit-button" onClick={onEditProfile} type="button"></button>
+            <h1 className="profile__title">{userName}</h1>
+            <button className="profile__edit-button" onClick={props.onEditProfile} type="button"></button>
           </div>
-          <p className="profile__subtitle" id="caption">тест</p>
+          <p className="profile__subtitle" id="caption">{userDescription}</p>
         </div>
-        <button className="profile__add-button" onClick={onAddPlace} type="button"></button>
+        <button className="profile__add-button" onClick={props.onAddPlace} type="button"></button>
       </section>
       <section className="elements">
         <template id="element-template">
