@@ -16,14 +16,14 @@ class Api {
       headers: this._headers 
   }) 
 
-    .then((res) => this. _getResponseData(res));
+    .then((res) => this._getResponseData(res));
   } 
  
   getUserInfo() { 
     return fetch(`${this._baseUrl}/users/me`, { 
       headers: this._headers 
   }) 
-  .then((res) => this. _getResponseData(res));
+  .then((res) => this._getResponseData(res));
   } 
    
   addCard(title, link) { 
@@ -35,7 +35,7 @@ class Api {
         link: link 
       }) 
     }) 
-    .then((res) => this. _getResponseData(res));//если запрос успешный, то применяем приватный мметод, сохраняющий данные в формате json
+    .then((res) => this._getResponseData(res));//если запрос успешный, то применяем приватный мметод, сохраняющий данные в формате json
   }; 
  
   editUserInfo(name, about) { 
@@ -47,7 +47,7 @@ class Api {
         about: about 
       }) 
     }) 
-    .then((res) => this. _getResponseData(res));
+    .then((res) => this._getResponseData(res));
     }; 
  
     newAvatar(link) { 
@@ -58,7 +58,7 @@ class Api {
           avatar: link 
         }) 
       }) 
-      .then((res) => this. _getResponseData(res));
+      .then((res) => this._getResponseData(res));
     } 
  
     handleLikeCard(cardId) { 
@@ -66,7 +66,7 @@ class Api {
         method: 'PUT', 
         headers: this._headers, 
       }) 
-      .then((res) => this. _getResponseData(res));
+      .then((res) => this._getResponseData(res));
     } 
  
     handleDeleteLike(cardId) { 
@@ -74,7 +74,7 @@ class Api {
         method: 'DELETE', 
         headers: this._headers, 
       }) 
-      .then((res) => this. _getResponseData(res));
+      .then((res) => this._getResponseData(res));
     } 
  
     deleteCard(cardId) { 
@@ -82,7 +82,7 @@ class Api {
         method: 'DELETE', 
         headers: this._headers, 
       }) 
-      .then((res) => this. _getResponseData(res));
+      .then((res) => this._getResponseData(res));
     } 
 } 
 

@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useState } from "react";
 import "../index.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
-import ImagePopup from './ImagePopup';
+import ImagePopup from "./ImagePopup";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import api from "../utils/api";
 
 function App() {
-   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-   const [selectedCard, setSelectedCard] = React.useState(null);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [currentUser, setCurrentUser] = useState({});
 
-    function closeAllPopups() {
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(null);
+    setSelectedCard({ name: "", link: "" });
   }
 
   function handleEditProfileClick() {
@@ -34,12 +46,11 @@ function App() {
   }
 
   return (
-
-    (
+    <CurrentUserContext.Provider value={currentUser}>
       <>
         <div className="page__container">
           <Header />
-          <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
+          <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
           <Footer />
         </div>
 
@@ -64,7 +75,7 @@ function App() {
 
         <ImagePopup card={selectedCard !== null && selectedCard} onClose={closeAllPopups} />
       </>
-    )
+    </CurrentUserContext.Provider>
   );
 }
 
