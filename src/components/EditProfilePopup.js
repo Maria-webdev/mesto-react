@@ -37,9 +37,9 @@ function changeDescription(e) {
 
 return (
 <PopupWithForm isOpen={props.isOpen} onClose={props.onClose} name={"edit"} title={"Редактировать профиль"} submitText={"Сохранить"} onSubmit={handleSubmit}>
-  <input value={name} onChange={changeName} className="popup__input popup__input_type_name" type="text" id="name" name="name" required minLength="2" maxLength="40" placeholder="Имя" />
+  <input value={name || ""} onChange={changeName} className="popup__input popup__input_type_name" type="text" id="name" name="name" required minLength="2" maxLength="40" placeholder="Имя" />
   <span className="popup__error" id="name-error"></span>
-  <input value={description} onChange={changeDescription} className="popup__input popup__input_type_about" type="text" id="about" name="about" required minLength="2" maxLength="200" placeholder="О Себе" />
+  <input value={description || ""} onChange={changeDescription} className="popup__input popup__input_type_about" type="text" id="about" name="about" required minLength="2" maxLength="200" placeholder="О Себе" />
   <span className="popup__error" id="about-error"></span>
 </PopupWithForm>
 )
