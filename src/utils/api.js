@@ -59,23 +59,15 @@ class Api {
         }) 
       }) 
       .then((res) => this._getResponseData(res));
-    } 
- 
-    handleLikeCard(cardId) { 
+    }
+
+    changeLikeCardStatus(cardId, isLiked) {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, { 
-        method: 'PUT', 
+        method: !isLiked ? 'DELETE' : 'PUT',
         headers: this._headers, 
-      }) 
+      })
       .then((res) => this._getResponseData(res));
-    } 
- 
-    handleDeleteLike(cardId) { 
-      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, { 
-        method: 'DELETE', 
-        headers: this._headers, 
-      }) 
-      .then((res) => this._getResponseData(res));
-    } 
+    }
  
     deleteCard(cardId) { 
       return fetch(`${this._baseUrl}/cards/${cardId}`, { 
