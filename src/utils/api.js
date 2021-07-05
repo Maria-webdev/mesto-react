@@ -24,7 +24,7 @@ class Api {
       headers: this._headers 
   }) 
   .then((res) => this._getResponseData(res));
-  } 
+  }
    
   addCard(title, link) { 
     return fetch(`${this._baseUrl}/cards`, { //отправляем запрос на сервер, даем 2 аргумента: ссылку запрашиваемого ремурса (я почитала о шаблонных строках))) и обънект опций, состоящий из:
@@ -38,17 +38,17 @@ class Api {
     .then((res) => this._getResponseData(res));//если запрос успешный, то применяем приватный мметод, сохраняющий данные в формате json
   }; 
  
-  editUserInfo(name, about) { 
+  editUserInfo(data) { 
     return fetch(`${this._baseUrl}/users/me`, { 
       method: 'PATCH', 
       headers: this._headers, 
       body: JSON.stringify({ 
-        name: name, 
-        about: about 
+        name: data.name, 
+        about: data.about 
       }) 
     }) 
     .then((res) => this._getResponseData(res));
-    }; 
+  }
  
     newAvatar(link) { 
       return fetch(`${this._baseUrl}/users/me/avatar`, { 
