@@ -22,7 +22,7 @@ function handleSubmit(e) {
 
   // Передаём значения управляемых компонентов во внешний обработчик
   props.onUpdateUser({
-    name: name,
+    name,
     about: description,
   });
 }
