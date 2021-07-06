@@ -42,7 +42,6 @@ return (
   <input value={description || ""} onChange={changeDescription} className="popup__input popup__input_type_about" type="text" id="about" name="about" required minLength="2" maxLength="200" placeholder="О Себе" />
   <span className="popup__error" id="about-error"></span>
 </PopupWithForm>
-)
-}
+)}
 
 export default EditProfilePopup;
